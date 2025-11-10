@@ -1,16 +1,18 @@
 import requests
 
 def skyblock(skyblock):
-    response = requests.get(f"https://api.hypixel.net/?ref=freepublicapis.com#tag/SkyBlock/paths/~1v2~1skyblock~1bazaar/get{poke.lower()}")
+    response = requests.get(f"https://api.hypixel.net/?ref=freepublicapis.com#tag/SkyBlock/paths/~1v2~1skyblock~1bazaar/get{skyblock()}")
     if response.status_code != 200:
         print("Error fetching data!")
         return None
     
     data = response.json()
-    return{
-        "sell_summary": data["sell_summary"],
-        "buy_summary": data["buy_summary"],
-        "quick_status": data["quick_status"],
+    y=0
+    for h in data["products"]:
+        y+=1
+        for i in data["products"][y]:
+            return{
+                "quick_status": data["products"][y]["quick_status"]
     }
 {
     "success": True,
@@ -61,3 +63,5 @@ def skyblock(skyblock):
         }
     }
 }
+
+skyblock=skyblock(363463456)
