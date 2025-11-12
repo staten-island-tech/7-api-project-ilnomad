@@ -5,18 +5,18 @@ def skyblock(skyblock):
     if response.status_code != 200:
         print("Error fetching data!")
         return None
-    
     data = response.json()
+    lastUpdated=skyblock
     print(data)
     c=0
     for b in data:
-        c+=1
-        for h in data[c]["products"]:
+        for h in data[c]["lastUpdated"]["products"]:
             y=0
-            for i in data[c]["products"][y]:
+            for i in data[c]["lastUpdated"]["products"][y]:
                 return{
-                    "quick_status": data["products"][y]["quick_status"]
-        }
+                    data["lastUpdated"][y]["quick_status"]
+                }
             y+=1
+        c+=1
 
-skyblock(363463456)
+skyblock(5757575756)
