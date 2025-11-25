@@ -8,18 +8,22 @@ def puzzle():
         print("Error fetching data!")
         return None
     data = response.json()
+    print("air")
     return{
         "Gamemode": data["game"]["perf"]["name"],
         "Clock": data["game"]["clock"],
         "Solution": data["puzzle"]["solution"],
         "PGN": data["game"]["pgn"]
     }
-print(puzzle())
+def printpuzzle():
+    print(puzzle())
 
-awindow = tk.Tk()
-awindow.geometry('1280x720+320+180')
-awindow.title("Daily Puzzles")
-entry=tk.Entry(awindow, font=("Comfortaa", 14), width=30)
+window=tk.Tk()
+window.geometry('1280x720+320+180')
+window.title("Daily Puzzles on LiChess")
+entry=tk.Entry(window, font=("Comfortaa", 14), width=30)
 entry.pack(pady=5)
-abutton=ttk.Button(awindow, text="Retrieve the puzzle for {entry}",command=puzzle).pack()
-awindow.mainloop()
+date=entry.get
+button=tk.Button(window,text=f"Retrieve the daily puzzle for any date available.",command=printpuzzle)
+button.pack(padx=10,pady=10)
+window.mainloop()
