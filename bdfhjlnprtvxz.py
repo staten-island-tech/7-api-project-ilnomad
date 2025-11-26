@@ -1,29 +1,28 @@
 import tkinter as tk
-from tkinter import ttk
 import requests
 
 def puzzle():
-    response = requests.get("https://lichess.org/api/puzzle/daily")
+    response = requests.get("https://lichess.org/api/puzzle/next")
     if response.status_code != 200:
         print("Error fetching data!")
         return None
     data = response.json()
-    print("air")
-    return{
-        "Gamemode": data["game"]["perf"]["name"],
-        "Clock": data["game"]["clock"],
-        "Solution": data["puzzle"]["solution"],
-        "PGN": data["game"]["pgn"]
-    }
-def printpuzzle():
-    print(puzzle())
+    a=data["game"]["perf"]["name"],
+    b=data["game"]["clock"],
+    c=data["puzzle"]["solution"],
+    d=data["game"]["pgn"]
 
+buttonpressed=False
 window=tk.Tk()
 window.geometry('1280x720+320+180')
-window.title("Daily Puzzles on LiChess")
-entry=tk.Entry(window, font=("Comfortaa", 14), width=30)
-entry.pack(pady=5)
-date=entry.get
-button=tk.Button(window,text=f"Retrieve the daily puzzle for any date available.",command=printpuzzle)
+window.title("Puzzles on LiChess")
+button=tk.Button(window,text=f"Retrieve a random puzzle.",command=puzzle)
 button.pack(padx=10,pady=10)
+outputtext=tk.Label(window,text="0,0,0",font=("Courier New",14),fg="blue",wraplength=10)
+if buttonpressed==True:
+    outputtext.config(text=a,font=("Courier New",14),fg="blue")
+    outputtext.config(text=b,font=("Courier New",14),fg="blue")
+    outputtext.config(text=c,font=("Courier New",14),fg="blue")
+    outputtext.config(text=d,font=("Courier New",14),fg="blue")
 window.mainloop()
+
