@@ -1,8 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
 import requests
-a=b=c=d=""
-e=f=[]
 def puzzle():
     response = requests.get("https://lichess.org/api/puzzle/next")
     if response.status_code != 200:
@@ -13,12 +11,21 @@ def puzzle():
     b=data["game"]["clock"]
     c=data["puzzle"]["solution"]
     d=data["game"]["pgn"]
-    e=data["puzzle"]["solution"]
-    f=data["puzzle"]["themes"]
-    a_a=ttk.Label(window,text=f"{a},{b},{c},{d}",font=("Helvetica",14))
+    e=data["puzzle"]["themes"]
+    a_a=ttk.Label(window,text=f"{a},{b},{c},{d},{e}",font=("Helvetica",14))
     a_a.pack()
-    print(c,d)
-
+f=False
+def movechecker():
+    i=0
+    g=inputentry.get()
+    for g in c:
+        while f==False:
+            if g==x[i]:
+                h=ttk.Label(window,text="You successfully found the move.")
+                h.place(x=650,y=100)
+                print("asdasdsa")
+                i+=1
+            else: print("aahdgfhgdfhydgfuydgfhygfhydgfuhdgfudgfujgfkjhgf")
 window=tk.Tk()
 window.geometry('1280x720+320+180')
 window.title('Puzzles on LiChess')
@@ -26,10 +33,13 @@ outputtext=ttk.Label(window,text="LiChess Puzzles",font=("Helvetica",14))
 outputtext.pack()
 button=tk.Button(window,text='Retrieve a puzzle.',command=puzzle)
 button.pack(padx=10,pady=10)
+movecheckerbutton=tk.Button(window,text='Check your move.',command=movechecker)
+movecheckerbutton.place(x=1000,y=150)
 inputentry=ttk.Entry(window)
-alabel=ttk.Label(window,text="What's the next move in this puzzle?",font=("Helvetica",14))
 inputentry.place(x=750,y=200)
+alabel=ttk.Label(window,text="What's the next move in this puzzle?",font=("Helvetica",14))
 alabel.place(x=650,y=150)
+
 a1=tk.Button(window,text="dd",bg=("#739552"),fg=("#739552"),activebackground=("#739552"),activeforeground=("#739552"))
 a2=tk.Button(window,text="dd",bg=("#ebecd0"),fg=("#ebecd0"),activebackground=("#ebecd0"),activeforeground=("#ebecd0"))
 a3=tk.Button(window,text="dd",bg=("#739552"),fg=("#739552"),activebackground=("#739552"),activeforeground=("#739552"))
@@ -158,12 +168,6 @@ h5.place(x=300,y=200)
 h6.place(x=325,y=200)
 h7.place(x=350,y=200)
 h8.place(x=375,y=200)
-g=False
-for h in e:
-    while g==False:
-        if inputentry.get==h:
-            i=ttk.Label(window,text="You successfully found the move.")
-            i.place(x=650,y=100)
 window.mainloop()
 
 #board
