@@ -10,21 +10,24 @@ def puzzle():
     a=data["game"]["perf"]["name"]
     b=data["game"]["clock"]
     c=data["puzzle"]["solution"]
-    d=data["game"]["pgn"]
+    d=data["puzzle"]["id"]
     e=data["puzzle"]["themes"]
     a_a=ttk.Label(window,text=f"{a},{b},{c},{d},{e}",font=("Helvetica",14))
     a_a.pack()
+    puzzlepreserver(d)
+""" def puzzlepreserver(d):
+    for  """
 f=False
 def movechecker():
-    i=0
-    g=inputentry.get()
-    for g in c:
+    g=0
+    h=inputentry.get()
+    for h in c:
         while f==False:
-            if g==x[i]:
-                h=ttk.Label(window,text="You successfully found the move.")
-                h.place(x=650,y=100)
+            if h==c[g]:
+                i=ttk.Label(window,text="You successfully found the move.")
+                i.place(x=650,y=100)
                 print("asdasdsa")
-                i+=1
+                g+=1
             else: print("aahdgfhgdfhydgfuydgfhygfhydgfuhdgfudgfujgfkjhgf")
 window=tk.Tk()
 window.geometry('1280x720+320+180')
