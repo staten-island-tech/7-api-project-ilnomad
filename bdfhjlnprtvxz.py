@@ -1,10 +1,13 @@
 import tkinter as tk
-from tkinter import ttk
 import requests
+import time
 class puzzles:
-    def __init__(self,c,d):
+    def __init__(self,a,b,c,d,e):
+        self.__a=a
+        self.__b=b
         self.__c=c
-        self.__d=d    
+        self.__d=d
+        self.__e=e    
     def puzzle():
         response = requests.get("https://lichess.org/api/puzzle/next")
         if response.status_code != 200:
@@ -16,48 +19,42 @@ class puzzles:
         c=data["puzzle"]["solution"]
         d=data["puzzle"]["id"]
         e=data["puzzle"]["themes"]
-        a_a=ttk.Label(window,text=f"{a},{b},{c},{d},{e}",font=("Helvetica",14))
+        a_a=tk.Label(window,text=f"{c}",font=("Helvetica",14))
         a_a.pack()
-        puzzles.__init__(c)
-        # puzzles.movechecker(c)
-    # def movechecker(self,c,d):
-    #     j=False
-    #     while j==False:
-    #         response = requests.get("https://lichess.org/api/puzzle/next")
-    #         if response.status_code != 200:
-    #             print("Error fetching data!")
-    #             return None
-    #         data = response.json()
-    #         for k in data["puzzle"]["id"]:
-    #             if k==d:
-    #                 j=True
-    #                 puzzles.movechecker2(c)
-    def movechecker2(self,c):
+        puzzle.__init__(a,b,c,d,e)
+    def movechecker():
         f=False
         g=0
         h=inputentry.get()
-        for h in c:
+        for i in puzzle.__c:
             while f==False:
-                if h==c[g]:
-                    i=ttk.Label(window,text="You successfully found the move.")
-                    i.place(x=650,y=100)
-                    print("asdasdsa")
+                if h==i:
+                    j=tk.Label(window,text="You successfully found the move.")
+                    j.place(x=950,y=100)
                     g+=1
-                else: print("aahdgfhgdfhydgfuydgfhygfhydgfuhdgfudgfujgfkjhgf")
-
+                    f=True
+                else: 
+                    a_b=tk.Label(window,text="You didn't find the move.")
+                    a_b.place()
+                    time.sleep(10)
+                    a_b.destroy()
 window=tk.Tk()
 window.geometry('1280x720+320+180')
 window.title('Puzzles on LiChess')
-outputtext=ttk.Label(window,text="LiChess Puzzles",font=("Helvetica",14))
+outputtext=tk.Label(window,text="LiChess Puzzles",font=("Helvetica",14))
 outputtext.pack()
 button=tk.Button(window,text='Retrieve a puzzle.',command=puzzles.puzzle)
 button.pack(padx=10,pady=10)
-movecheckerbutton=tk.Button(window,text='Check your move.',command=puzzles.movechecker2)
+movecheckerbutton=tk.Button(window,text='Check your move.',command=puzzles.movechecker)
 movecheckerbutton.place(x=1000,y=150)
-inputentry=ttk.Entry(window)
+inputentry=tk.Entry(window)
 inputentry.place(x=750,y=200)
-alabel=ttk.Label(window,text="What's the next move in this puzzle?",font=("Helvetica",14))
+alabel=tk.Label(window,text="What's the next move in this puzzle?",font=("Helvetica",14))
 alabel.place(x=650,y=150)
+puzzle=puzzles("","",[],"",[])
+l=0
+for k in puzzle.__e:
+    k.place(100,100)
 
 a1=tk.Button(window,text="dd",bg=("#739552"),fg=("#739552"),activebackground=("#739552"),activeforeground=("#739552"))
 a2=tk.Button(window,text="dd",bg=("#ebecd0"),fg=("#ebecd0"),activebackground=("#ebecd0"),activeforeground=("#ebecd0"))
