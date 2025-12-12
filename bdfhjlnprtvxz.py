@@ -36,7 +36,7 @@ class puzzles:
                 else: 
                     a_b=tk.Label(window,text="You didn't find the move.")
                     a_b.place()
-                    time.sleep(10)
+                    time.sleep(5)
                     a_b.destroy()
 window=tk.Tk()
 window.geometry('1280x720+320+180')
@@ -52,9 +52,10 @@ inputentry.place(x=750,y=200)
 alabel=tk.Label(window,text="What's the next move in this puzzle?",font=("Helvetica",14))
 alabel.place(x=650,y=150)
 puzzle=puzzles("","",[],"",[])
-l=0
-for k in puzzle.__e:
-    k.place(100,100)
+# l=0
+# for k in puzzle.__e:
+#     k.place(100,100+l)
+#     l+=25
 
 a1=tk.Button(window,text="dd",bg=("#739552"),fg=("#739552"),activebackground=("#739552"),activeforeground=("#739552"))
 a2=tk.Button(window,text="dd",bg=("#ebecd0"),fg=("#ebecd0"),activebackground=("#ebecd0"),activeforeground=("#ebecd0"))
@@ -186,6 +187,4 @@ h7.place(x=350,y=200)
 h8.place(x=375,y=200)
 window.mainloop()
 
-#board
-#select square
-#pieces on board
+#create image based on fen
