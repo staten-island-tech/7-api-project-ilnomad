@@ -1,13 +1,17 @@
 import tkinter as tk
 import requests
 import time
+import chess
+import chess.pgn
+from io import StringIO
 class puzzles:
-    def __init__(self,a,b,c,d,e):
+    def __init__(self,a,b,c,d,e,f):
         self.__a=a
         self.__b=b
         self.__c=c
         self.__d=d
-        self.__e=e    
+        self.__e=e
+        self.__f=f    
     def puzzle():
         response = requests.get("https://lichess.org/api/puzzle/next")
         if response.status_code != 200:
@@ -19,28 +23,31 @@ class puzzles:
         c=data["puzzle"]["solution"]
         d=data["puzzle"]["id"]
         e=data["puzzle"]["themes"]
+        f=data["game"]["pgn"]
         a_a=tk.Label(window,text=f"{c}",font=("Helvetica",14))
         a_a.pack()
-        puzzle.__init__(a,b,c,d,e)
+        puzzle.__init__(a,b,c,d,e,f)
     def movechecker():
-        f=False
-        g=0
-        h=inputentry.get()
-        for i in puzzle.__c:
-            while f==False:
-                if h==i:
-                    j=tk.Label(window,text="You successfully found the move.")
-                    j.place(x=950,y=100)
-                    g+=1
-                    f=True
+        g=False
+        h=0
+        i=inputentry.get()
+        for j in puzzle.__c:
+            while g==False:
+                if i==j:
+                    k=tk.Label(window,text="You successfully found the move.")
+                    k.place(x=950,y=100)
+                    time.sleep(5)
+                    k.destroy()
+                    h+=1
+                    g=True
                 else: 
                     a_b=tk.Label(window,text="You didn't find the move.")
-                    a_b.place()
+                    a_b.place(x=950,y=100)
                     time.sleep(5)
                     a_b.destroy()
 window=tk.Tk()
-window.geometry('1280x720+320+180')
-window.title('Puzzles on LiChess')
+window.geometry("1280x720+320+180")
+window.title("Puzzles on LiChess")
 outputtext=tk.Label(window,text="LiChess Puzzles",font=("Helvetica",14))
 outputtext.pack()
 button=tk.Button(window,text='Retrieve a puzzle.',command=puzzles.puzzle)
@@ -51,140 +58,10 @@ inputentry=tk.Entry(window)
 inputentry.place(x=750,y=200)
 alabel=tk.Label(window,text="What's the next move in this puzzle?",font=("Helvetica",14))
 alabel.place(x=650,y=150)
-puzzle=puzzles("","",[],"",[])
-# l=0
-# for k in puzzle.__e:
-#     k.place(100,100+l)
-#     l+=25
-
-a1=tk.Button(window,text="dd",bg=("#739552"),fg=("#739552"),activebackground=("#739552"),activeforeground=("#739552"))
-a2=tk.Button(window,text="dd",bg=("#ebecd0"),fg=("#ebecd0"),activebackground=("#ebecd0"),activeforeground=("#ebecd0"))
-a3=tk.Button(window,text="dd",bg=("#739552"),fg=("#739552"),activebackground=("#739552"),activeforeground=("#739552"))
-a4=tk.Button(window,text="dd",bg=("#ebecd0"),fg=("#ebecd0"),activebackground=("#ebecd0"),activeforeground=("#ebecd0"))
-a5=tk.Button(window,text="dd",bg=("#739552"),fg=("#739552"),activebackground=("#739552"),activeforeground=("#739552"))
-a6=tk.Button(window,text="dd",bg=("#ebecd0"),fg=("#ebecd0"),activebackground=("#ebecd0"),activeforeground=("#ebecd0"))
-a7=tk.Button(window,text="dd",bg=("#739552"),fg=("#7d9552"),activebackground=("#739552"),activeforeground=("#739552"))
-a8=tk.Button(window,text="dd",bg=("#ebecd0"),fg=("#ebecd0"),activebackground=("#ebecd0"),activeforeground=("#ebecd0"))
-b1=tk.Button(window,text="dd",bg=("#ebecd0"),fg=("#ebecd0"),activebackground=("#ebecd0"),activeforeground=("#ebecd0"))
-b2=tk.Button(window,text="dd",bg=("#739552"),fg=("#739552"),activebackground=("#739552"),activeforeground=("#739552"))
-b3=tk.Button(window,text="dd",bg=("#ebecd0"),fg=("#ebecd0"),activebackground=("#ebecd0"),activeforeground=("#ebecd0"))
-b4=tk.Button(window,text="dd",bg=("#739552"),fg=("#739552"),activebackground=("#739552"),activeforeground=("#739552"))
-b5=tk.Button(window,text="dd",bg=("#ebecd0"),fg=("#ebecd0"),activebackground=("#ebecd0"),activeforeground=("#ebecd0"))
-b6=tk.Button(window,text="dd",bg=("#739552"),fg=("#739552"),activebackground=("#739552"),activeforeground=("#739552"))
-b7=tk.Button(window,text="dd",bg=("#ebecd0"),fg=("#ebecd0"),activebackground=("#ebecd0"),activeforeground=("#ebecd0"))
-b8=tk.Button(window,text="dd",bg=("#739552"),fg=("#739552"),activebackground=("#739552"),activeforeground=("#739552"))
-c1=tk.Button(window,text="dd",bg=("#739552"),fg=("#739552"),activebackground=("#739552"),activeforeground=("#739552"))
-c2=tk.Button(window,text="dd",bg=("#ebecd0"),fg=("#ebecd0"),activebackground=("#ebecd0"),activeforeground=("#ebecd0"))
-c3=tk.Button(window,text="dd",bg=("#739552"),fg=("#739552"),activebackground=("#739552"),activeforeground=("#739552"))
-c4=tk.Button(window,text="dd",bg=("#ebecd0"),fg=("#ebecd0"),activebackground=("#ebecd0"),activeforeground=("#ebecd0"))
-c5=tk.Button(window,text="dd",bg=("#739552"),fg=("#739552"),activebackground=("#739552"),activeforeground=("#739552"))
-c6=tk.Button(window,text="dd",bg=("#ebecd0"),fg=("#ebecd0"),activebackground=("#ebecd0"),activeforeground=("#ebecd0"))
-c7=tk.Button(window,text="dd",bg=("#739552"),fg=("#739552"),activebackground=("#739552"),activeforeground=("#739552"))
-c8=tk.Button(window,text="dd",bg=("#ebecd0"),fg=("#ebecd0"),activebackground=("#ebecd0"),activeforeground=("#ebecd0"))
-d1=tk.Button(window,text="dd",bg=("#ebecd0"),fg=("#ebecd0"),activebackground=("#ebecd0"),activeforeground=("#ebecd0"))
-d2=tk.Button(window,text="dd",bg=("#739552"),fg=("#739552"),activebackground=("#739552"),activeforeground=("#739552"))
-d3=tk.Button(window,text="dd",bg=("#ebecd0"),fg=("#ebecd0"),activebackground=("#ebecd0"),activeforeground=("#ebecd0"))
-d4=tk.Button(window,text="dd",bg=("#739552"),fg=("#739552"),activebackground=("#739552"),activeforeground=("#739552"))
-d5=tk.Button(window,text="dd",bg=("#ebecd0"),fg=("#ebecd0"),activebackground=("#ebecd0"),activeforeground=("#ebecd0"))
-d6=tk.Button(window,text="dd",bg=("#739552"),fg=("#739552"),activebackground=("#739552"),activeforeground=("#739552"))
-d7=tk.Button(window,text="dd",bg=("#ebecd0"),fg=("#ebecd0"),activebackground=("#ebecd0"),activeforeground=("#ebecd0"))
-d8=tk.Button(window,text="dd",bg=("#739552"),fg=("#739552"),activebackground=("#739552"),activeforeground=("#739552"))
-e1=tk.Button(window,text="dd",bg=("#739552"),fg=("#739552"),activebackground=("#739552"),activeforeground=("#739552"))
-e2=tk.Button(window,text="dd",bg=("#ebecd0"),fg=("#ebecd0"),activebackground=("#ebecd0"),activeforeground=("#ebecd0"))
-e3=tk.Button(window,text="dd",bg=("#739552"),fg=("#739552"),activebackground=("#739552"),activeforeground=("#739552"))
-e4=tk.Button(window,text="dd",bg=("#ebecd0"),fg=("#ebecd0"),activebackground=("#ebecd0"),activeforeground=("#ebecd0"))
-e5=tk.Button(window,text="dd",bg=("#739552"),fg=("#739552"),activebackground=("#739552"),activeforeground=("#739552"))
-e6=tk.Button(window,text="dd",bg=("#ebecd0"),fg=("#ebecd0"),activebackground=("#ebecd0"),activeforeground=("#ebecd0"))
-e7=tk.Button(window,text="dd",bg=("#739552"),fg=("#739552"),activebackground=("#739552"),activeforeground=("#739552"))
-e8=tk.Button(window,text="dd",bg=("#ebecd0"),fg=("#ebecd0"),activebackground=("#ebecd0"),activeforeground=("#ebecd0"))
-f1=tk.Button(window,text="dd",bg=("#ebecd0"),fg=("#ebecd0"),activebackground=("#ebecd0"),activeforeground=("#ebecd0"))
-f2=tk.Button(window,text="dd",bg=("#739552"),fg=("#739552"),activebackground=("#739552"),activeforeground=("#739552"))
-f3=tk.Button(window,text="dd",bg=("#ebecd0"),fg=("#ebecd0"),activebackground=("#ebecd0"),activeforeground=("#ebecd0"))
-f4=tk.Button(window,text="dd",bg=("#739552"),fg=("#739552"),activebackground=("#739552"),activeforeground=("#739552"))
-f5=tk.Button(window,text="dd",bg=("#ebecd0"),fg=("#ebecd0"),activebackground=("#ebecd0"),activeforeground=("#ebecd0"))
-f6=tk.Button(window,text="dd",bg=("#739552"),fg=("#739552"),activebackground=("#739552"),activeforeground=("#739552"))
-f7=tk.Button(window,text="dd",bg=("#ebecd0"),fg=("#ebecd0"),activebackground=("#ebecd0"),activeforeground=("#ebecd0"))
-f8=tk.Button(window,text="dd",bg=("#739552"),fg=("#739552"),activebackground=("#739552"),activeforeground=("#739552"))
-g1=tk.Button(window,text="dd",bg=("#739552"),fg=("#739552"),activebackground=("#739552"),activeforeground=("#739552"))
-g2=tk.Button(window,text="dd",bg=("#ebecd0"),fg=("#ebecd0"),activebackground=("#ebecd0"),activeforeground=("#ebecd0"))
-g3=tk.Button(window,text="dd",bg=("#739552"),fg=("#739552"),activebackground=("#739552"),activeforeground=("#739552"))
-g4=tk.Button(window,text="dd",bg=("#ebecd0"),fg=("#ebecd0"),activebackground=("#ebecd0"),activeforeground=("#ebecd0"))
-g5=tk.Button(window,text="dd",bg=("#739552"),fg=("#739552"),activebackground=("#739552"),activeforeground=("#739552"))
-g6=tk.Button(window,text="dd",bg=("#ebecd0"),fg=("#ebecd0"),activebackground=("#ebecd0"),activeforeground=("#ebecd0"))
-g7=tk.Button(window,text="dd",bg=("#739552"),fg=("#739552"),activebackground=("#739552"),activeforeground=("#739552"))
-g8=tk.Button(window,text="dd",bg=("#ebecd0"),fg=("#ebecd0"),activebackground=("#ebecd0"),activeforeground=("#ebecd0"))
-h1=tk.Button(window,text="dd",bg=("#ebecd0"),fg=("#ebecd0"),activebackground=("#ebecd0"),activeforeground=("#ebecd0"))
-h2=tk.Button(window,text="dd",bg=("#739552"),fg=("#739552"),activebackground=("#739552"),activeforeground=("#739552"))
-h3=tk.Button(window,text="dd",bg=("#ebecd0"),fg=("#ebecd0"),activebackground=("#ebecd0"),activeforeground=("#ebecd0"))
-h4=tk.Button(window,text="dd",bg=("#739552"),fg=("#739552"),activebackground=("#739552"),activeforeground=("#739552"))
-h5=tk.Button(window,text="dd",bg=("#ebecd0"),fg=("#ebecd0"),activebackground=("#ebecd0"),activeforeground=("#ebecd0"))
-h6=tk.Button(window,text="dd",bg=("#739552"),fg=("#739552"),activebackground=("#739552"),activeforeground=("#739552"))
-h7=tk.Button(window,text="dd",bg=("#ebecd0"),fg=("#ebecd0"),activebackground=("#ebecd0"),activeforeground=("#ebecd0"))
-h8=tk.Button(window,text="dd",bg=("#739552"),fg=("#739552"),activebackground=("#739552"),activeforeground=("#739552"))
-a1.place(x=200,y=375)
-a2.place(x=225,y=375)
-a3.place(x=250,y=375)
-a4.place(x=275,y=375)
-a5.place(x=300,y=375)
-a6.place(x=325,y=375)
-a7.place(x=350,y=375)
-a8.place(x=375,y=375)
-b1.place(x=200,y=350)
-b2.place(x=225,y=350)
-b3.place(x=250,y=350)
-b4.place(x=275,y=350)
-b5.place(x=300,y=350)
-b6.place(x=325,y=350)
-b7.place(x=350,y=350)
-b8.place(x=375,y=350)
-c1.place(x=200,y=325)
-c2.place(x=225,y=325)
-c3.place(x=250,y=325)
-c4.place(x=275,y=325)
-c5.place(x=300,y=325)
-c6.place(x=325,y=325)
-c7.place(x=350,y=325)
-c8.place(x=375,y=325)
-d1.place(x=200,y=300)
-d2.place(x=225,y=300)
-d3.place(x=250,y=300)
-d4.place(x=275,y=300)
-d5.place(x=300,y=300)
-d6.place(x=325,y=300)
-d7.place(x=350,y=300)
-d8.place(x=375,y=300)
-e1.place(x=200,y=275)
-e2.place(x=225,y=275)
-e3.place(x=250,y=275)
-e4.place(x=275,y=275)
-e5.place(x=300,y=275)
-e6.place(x=325,y=275)
-e7.place(x=350,y=275)
-e8.place(x=375,y=275)
-f1.place(x=200,y=250)
-f2.place(x=225,y=250)
-f3.place(x=250,y=250)
-f4.place(x=275,y=250)
-f5.place(x=300,y=250)
-f6.place(x=325,y=250)
-f7.place(x=350,y=250)
-f8.place(x=375,y=250)
-g1.place(x=200,y=225)
-g2.place(x=225,y=225)
-g3.place(x=250,y=225)
-g4.place(x=275,y=225)
-g5.place(x=300,y=225)
-g6.place(x=325,y=225)
-g7.place(x=350,y=225)
-g8.place(x=375,y=225)
-h1.place(x=200,y=200)
-h2.place(x=225,y=200)
-h3.place(x=250,y=200)
-h4.place(x=275,y=200)
-h5.place(x=300,y=200)
-h6.place(x=325,y=200)
-h7.place(x=350,y=200)
-h8.place(x=375,y=200)
+puzzle=puzzles("","",[],"",[],"")
+board = chess.Board()
 window.mainloop()
 
-#create image based on fen
+pgn_str=open(puzzle.__f)
+pgn=StringIO(pgn_str)
+game = chess.pgn.read_game(pgn)
