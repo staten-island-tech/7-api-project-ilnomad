@@ -24,9 +24,10 @@ class puzzles:
         d=data["puzzle"]["id"]
         e=data["puzzle"]["themes"]
         f=data["game"]["pgn"]
-        a_a=tk.Label(window,text=f"{c}",font=("Helvetica",14))
+        a_a=tk.Label(window,text=f"{c},{f}",font=("Helvetica",14))
         a_a.pack()
         puzzle.__init__(a,b,c,d,e,f)
+        puzzle.boardprint(f)
     def movechecker():
         g=False
         h=0
@@ -45,6 +46,11 @@ class puzzles:
                     a_b.place(x=950,y=100)
                     time.sleep(5)
                     a_b.destroy()
+    def boardprint(self,f):
+        pgn=StringIO(puzzle.__f)
+        game=chess.pgn.read_game(pgn)
+        board=tk.Label(window,text=f"{game}")
+        board.place(x=0,y=200)
 window=tk.Tk()
 window.geometry("1280x720+320+180")
 window.title("Puzzles on LiChess")
@@ -59,9 +65,5 @@ inputentry.place(x=750,y=200)
 alabel=tk.Label(window,text="What's the next move in this puzzle?",font=("Helvetica",14))
 alabel.place(x=650,y=150)
 puzzle=puzzles("","",[],"",[],"")
-board = chess.Board()
 window.mainloop()
 
-pgn_str=open(puzzle.__f)
-pgn=StringIO(pgn_str)
-game = chess.pgn.read_game(pgn)
