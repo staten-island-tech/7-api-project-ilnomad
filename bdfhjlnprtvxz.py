@@ -27,7 +27,7 @@ class puzzles:
         a_a=tk.Label(window,text=f"{c},{f}",font=("Helvetica",14))
         a_a.pack()
         puzzle.__init__(a,b,c,d,e,f)
-        puzzle.boardprint(f)
+        puzzle.boardprint()
     def movechecker():
         g=False
         h=0
@@ -46,11 +46,20 @@ class puzzles:
                     a_b.place(x=950,y=100)
                     time.sleep(5)
                     a_b.destroy()
-    def boardprint(self,f):
+    def boardprint(self):
         pgn=StringIO(puzzle.__f)
         game=chess.pgn.read_game(pgn)
-        board=tk.Label(window,text=f"{game}")
-        board.place(x=0,y=200)
+        move_number = 8
+        for number, move in enumerate(game.mainline_moves()):
+            board.push(move)
+            if number == move_number:  
+                break
+        fen = board.fen()
+        print(fen)
+        print(game)
+        game=chess.Board()
+        print(game)
+
 window=tk.Tk()
 window.geometry("1280x720+320+180")
 window.title("Puzzles on LiChess")
@@ -62,8 +71,8 @@ movecheckerbutton=tk.Button(window,text='Check your move.',command=puzzles.movec
 movecheckerbutton.place(x=1000,y=150)
 inputentry=tk.Entry(window)
 inputentry.place(x=750,y=200)
+puzzle=puzzles("","",[],"",[],"")
 alabel=tk.Label(window,text="What's the next move in this puzzle?",font=("Helvetica",14))
 alabel.place(x=650,y=150)
-puzzle=puzzles("","",[],"",[],"")
 window.mainloop()
 
